@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>朋友圈写作助手（可直接使用）</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>朋友圈写作助手</h1>
+      <p>内置你提供的 Prompt 三件套 + JSON 输出规范，可直接调用 OpenAI 兼容接口。</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>1) API 配置</h2>
+        <div class="grid two">
+          <label>Base URL
+            <input id="baseUrl" value="https://api.openai.com/v1" />
+          </label>
+          <label>Model
+            <input id="model" value="gpt-4o-mini" />
+          </label>
+        </div>
+        <label>API Key
+          <input id="apiKey" type="password" placeholder="sk-...（仅保存在本地浏览器）" />
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>2) 用户输入</h2>
+        <div class="grid three">
+          <label>场景
+            <select id="scene">
+              <option>活动回顾</option><option>感谢</option><option>招募</option><option>感悟</option><option>日常</option>
+            </select>
+          </label>
+          <label>语气
+            <select id="tone">
+              <option>可爱</option><option>女CEO</option><option>清冷高级</option><option>热血</option><option>松弛</option>
+            </select>
+          </label>
+          <label>长度偏好
+            <select id="lengthPref">
+              <option>60</option><option selected>150</option><option>300</option>
+            </select>
+          </label>
+        </div>
+        <label>主题 / 碎片 / 场景描述
+          <textarea id="userInput" rows="5" placeholder="例如：今天带团队在某园区做闭门分享，聊了AI产品化落地..."></textarea>
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>3) 检索与记忆（可粘贴你的向量检索结果）</h2>
+        <div class="actions">
+          <button id="btnRewriteQueries" class="secondary">先生成 4 类检索 Queries</button>
+        </div>
+        <label>query_rewriter 输出
+          <textarea id="rewrittenQueries" rows="6" placeholder="{"style_queries":[],...}"></textarea>
+        </label>
+        <p class="hint">若你已接好向量库，把检索结果 JSON（数组）贴进来；每条建议包含：id,type,title,content,date,tags,privacy_level。</p>
+        <label>retrieval_results JSON
+          <textarea id="retrievalResults" rows="8" placeholder='[{"id":"s1","type":"Style Rules","content":"..."}]'></textarea>
+        </label>
+        <div class="actions">
+          <button id="btnPackMemory">生成 memory_pack（本地规则打包）</button>
+          <button id="btnPackMemoryByModel" class="secondary">用模型按 context_pack 规则打包</button>
+        </div>
+        <label>memory_pack（可编辑）
+          <textarea id="memoryPack" rows="8" placeholder='{"memory_pack": [...]}'></textarea>
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>4) 一键生成</h2>
+        <div class="actions">
+          <button id="btnGenerate">调用模型生成 4 版本文案</button>
+          <button id="btnCopyJson" class="secondary">复制 JSON</button>
+        </div>
+        <label>模型输出 JSON
+          <textarea id="outputJson" rows="14" placeholder='{"meta":...,"variants":...}'></textarea>
+        </label>
+        <div id="rendered" class="variants"></div>
+      </section>
+    </main>
+
+    <template id="variantTpl">
+      <article class="variant-card">
+        <h3></h3>
+        <pre class="variant-text"></pre>
+        <p class="chips"></p>
+      </article>
+    </template>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
