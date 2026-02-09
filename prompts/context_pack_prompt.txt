@@ -1,0 +1,5 @@
+你会收到知识库检索结果，字段包括：type, title, content, date, tags, privacy_level。
+请按优先级整理成“可用记忆包”：
+优先级：Style Rules > Recent(30天内) > Entities > Templates > Post Archive
+只保留与本次输入强相关的内容（最多12条），每条提炼成1-2句要点，并保留来源id。
+输出JSON：{memory_pack:[{id,type,summary,privacy_level,date,tags}]}

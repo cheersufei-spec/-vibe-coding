@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/friend-circle-output.schema.json",
+  "title": "Friend Circle Generation Output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["meta", "variants", "followups"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scene", "tone", "length_pref", "used_memory_ids", "privacy_warnings"],
+      "properties": {
+        "scene": {
+          "type": "string",
+          "description": "活动回顾|感谢|招募|感悟|日常"
+        },
+        "tone": {
+          "type": "string",
+          "description": "可爱|女CEO|清冷高级|热血|松弛"
+        },
+        "length_pref": {
+          "type": "string",
+          "description": "60|150|300"
+        },
+        "used_memory_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "privacy_warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "variants": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "text", "emoji_suggestion", "replace_suggestions"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "text": { "type": "string" },
+          "emoji_suggestion": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "replace_suggestions": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "followups": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["one_click_edits"],
+      "properties": {
+        "one_click_edits": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "更短一点",
+              "更克制一点",
+              "更有信息密度",
+              "更锋利但不攻击",
+              "更松弛一点",
+              "更适合投资圈社交"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
