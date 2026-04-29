@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background-color: #F7F6F1;
+    color: #1F1F1F;
+    font-family: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #F7F6F1;
+    min-height: 100vh;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100 p-6;
+  }
+
+  .btn-primary {
+    @apply bg-[#1F1F1F] text-white font-semibold px-8 py-3 rounded-xl
+           hover:bg-[#333333] active:scale-[0.98] transition-all duration-150
+           disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+
+  .risk-pill {
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .section-label {
+    @apply text-xs font-semibold uppercase tracking-widest text-[#BFA173] mb-2;
+  }
+}
+
+/* Score ring animation */
+@keyframes score-in {
+  from {
+    stroke-dashoffset: 283;
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.score-arc {
+  animation: score-in 0.8s ease-out forwards;
+}
+
+/* Fade slide in */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.4s ease-out forwards;
+}
+
+.fade-up-delay-1 { animation-delay: 0.05s; opacity: 0; }
+.fade-up-delay-2 { animation-delay: 0.1s;  opacity: 0; }
+.fade-up-delay-3 { animation-delay: 0.15s; opacity: 0; }
+.fade-up-delay-4 { animation-delay: 0.2s;  opacity: 0; }
+.fade-up-delay-5 { animation-delay: 0.25s; opacity: 0; }
+.fade-up-delay-6 { animation-delay: 0.3s;  opacity: 0; }
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #e0ddd6;
+  border-radius: 3px;
+}
